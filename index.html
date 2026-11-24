@@ -8,6 +8,12 @@
 </head>
 <body>
   <button id="theme-toggle" type="button" aria-pressed="false" aria-label="Cambiar tema claro/oscuro">☀ Claro</button>
+  <select id="skin-select" aria-label="Seleccionar skin visual">
+    <option value="retro">Retro</option>
+    <option value="neon">Neón</option>
+    <option value="pastel">Pastel</option>
+    <option value="pixel">Pixel art</option>
+  </select>
   <h1 class="title">TETRIS</h1>
   <div class="wrapper">
     <div class="game-container">
@@ -57,6 +63,11 @@
       <div class="overlay-box">
         <p id="overlay-title">GAME OVER</p>
         <p id="overlay-score"></p>
+        <div id="record-form" class="record-form hidden">
+          <input id="record-name" type="text" maxlength="12" value="Jugador" autocomplete="off" aria-label="Tu nombre" />
+          <button id="record-save" class="rec-btn" type="button">Guardar</button>
+        </div>
+        <div id="overlay-records" class="records hidden"></div>
         <button id="restart-btn">Reiniciar</button>
       </div>
     </div>
@@ -86,6 +97,14 @@
           </select>
         </label>
         <p class="pause-hint">Se aplica a la próxima partida (al reiniciar).</p>
+      </div>
+    </div>
+
+    <div id="start-overlay" class="overlay">
+      <div class="overlay-box">
+        <p class="start-title">TETRIS</p>
+        <div id="start-records" class="records"></div>
+        <button id="start-btn" type="button">Jugar</button>
       </div>
     </div>
   </div>
