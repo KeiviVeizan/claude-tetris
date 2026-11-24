@@ -430,14 +430,13 @@ function init() {
 document.addEventListener('keydown', e => {
   // Si el select conserva el foco, quitarlo para que las teclas de juego no cambien la skin
   if (document.activeElement === skinSelect) skinSelect.blur();
+  const tag = e.target && e.target.tagName;
+  if (tag === 'INPUT' || tag === 'TEXTAREA') return; // escribir el nombre no controla el juego
+  if (!started) return;
   if (e.code === 'KeyP' || e.code === 'Escape') {
     if (!e.repeat) togglePause();
     return;
   }
-  const tag = e.target && e.target.tagName;
-  if (tag === 'INPUT' || tag === 'TEXTAREA') return; // escribir el nombre no controla el juego
-  if (!started) return;
-  if (e.code === 'KeyP') { togglePause(); return; }
   if (paused || gameOver) return;
   if (resumeGuard) {
     if (e.repeat) return; // tecla pulsada desde antes de reanudar
@@ -687,11 +686,10 @@ let savedTheme = 'dark';
 try { savedTheme = localStorage.getItem(THEME_KEY) === 'light' ? 'light' : 'dark'; } catch (e) {}
 applyTheme(savedTheme);
 
-  const tag = e.target && e.target.tagName;
-  if (tag === 'INPUT' || tag === 'TEXTAREA') return; // escribir el nombre no controla el juego
-  if (!started) return;
 let savedSkin = 'retro';
 try { savedSkin = localStorage.getItem(SKIN_KEY) || 'retro'; } catch (e) {}
 applySkin(savedSkin);
 
-init();
+// Pantalla de inicio: el juego no arranca hasta pulsar "Jugar"
+records = loadRecords();
+refreshRecordViews();
